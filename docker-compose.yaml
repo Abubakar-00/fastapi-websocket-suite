@@ -1,0 +1,25 @@
+services:
+  server:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.server
+    ports:
+      - "8000:8000"
+    environment:
+      - LOG_LEVEL=INFO
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx; httpx.get('http://localhost:8000/health')"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  client:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.client
+    depends_on:
+      server:
+        condition: service_healthy
+    environment:
+      - LOG_LEVEL=INFO
+    command: ["--uri", "ws://server:8000/ws", "--operation", "add", "--a", "5", "--b", "10"]
