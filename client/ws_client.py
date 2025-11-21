@@ -1,8 +1,9 @@
 import asyncio
 import json
 import logging
+from typing import Any, Dict, Optional
+
 import websockets
-from typing import Optional, Dict, Any
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("ws_client")

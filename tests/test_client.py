@@ -1,7 +1,9 @@
-import pytest
-from unittest.mock import AsyncMock, patch, MagicMock
-from client.ws_client import WebSocketClient
 import json
+from unittest.mock import AsyncMock, MagicMock, patch
+
+import pytest
+
+from client.ws_client import WebSocketClient
 
 
 @pytest.mark.asyncio

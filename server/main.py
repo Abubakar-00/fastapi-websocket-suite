@@ -1,9 +1,11 @@
+import json
+
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
-import json
 from pydantic import ValidationError
-from server.schemas import ComputeRequest, ComputeResponse, ErrorResponse
+
 from server.core import compute_operation
+from server.schemas import ComputeRequest, ComputeResponse, ErrorResponse
 from server.utils import logger
 
 app = FastAPI(title="WebSocket Compute Server")

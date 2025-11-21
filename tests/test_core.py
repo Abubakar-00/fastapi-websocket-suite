@@ -1,4 +1,5 @@
 import pytest
+
 from server.core import compute_operation
 
 
