@@ -7,6 +7,7 @@ from typing import Optional, Dict, Any
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("ws_client")
 
+
 class WebSocketClient:
     def __init__(self, uri: str):
         self.uri = uri
@@ -25,16 +26,14 @@ class WebSocketClient:
             await self.websocket.close()
             logger.info("Disconnected")
 
-    async def compute(self, operation: str, a: float, b: float) -> Optional[Dict[str, Any]]:
+    async def compute(
+        self, operation: str, a: float, b: float
+    ) -> Optional[Dict[str, Any]]:
         if not self.websocket:
             await self.connect()
-        
-        payload = {
-            "operation": operation,
-            "a": a,
-            "b": b
-        }
-        
+
+        payload = {"operation": operation, "a": a, "b": b}
+
         try:
             await self.websocket.send(json.dumps(payload))
             response = await self.websocket.recv()

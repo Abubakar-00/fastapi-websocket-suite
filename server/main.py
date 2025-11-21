@@ -16,9 +16,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get("/health")
 async def health_check():
     return {"status": "ok"}
+
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
@@ -30,21 +32,22 @@ async def websocket_endpoint(websocket: WebSocket):
             try:
                 payload = json.loads(data)
                 request = ComputeRequest(**payload)
-                
+
                 result = compute_operation(request.operation, request.a, request.b)
-                
+
                 response = ComputeResponse(
-                    operation=request.operation,
-                    a=request.a,
-                    b=request.b,
-                    result=result
+                    operation=request.operation, a=request.a, b=request.b, result=result
                 )
                 await websocket.send_json(response.model_dump())
-                logger.info(f"Computed: {request.operation}({request.a}, {request.b}) = {result}")
-                
+                logger.info(
+                    f"Computed: {request.operation}({request.a}, {request.b}) = {result}"
+                )
+
             except json.JSONDecodeError:
                 logger.warning("Received invalid JSON")
-                await websocket.send_json(ErrorResponse(error="Invalid JSON").model_dump())
+                await websocket.send_json(
+                    ErrorResponse(error="Invalid JSON").model_dump()
+                )
             except ValidationError as e:
                 logger.warning(f"Validation error: {e}")
                 await websocket.send_json(ErrorResponse(error=str(e)).model_dump())
@@ -53,7 +56,9 @@ async def websocket_endpoint(websocket: WebSocket):
                 await websocket.send_json(ErrorResponse(error=str(e)).model_dump())
             except Exception as e:
                 logger.error(f"Unexpected error: {e}")
-                await websocket.send_json(ErrorResponse(error="Internal server error").model_dump())
-                
+                await websocket.send_json(
+                    ErrorResponse(error="Internal server error").model_dump()
+                )
+
     except WebSocketDisconnect:
         logger.info("Client disconnected")
