@@ -34,6 +34,9 @@ uvicorn server.main:app --reload --host 0.0.0.0 --port 8000
 ```
 The server will be available at `ws://localhost:8000/ws`.
 
+<img width="1200" height="400" alt="image" src="https://github.com/user-attachments/assets/df94e455-6f47-46e2-8a52-05454e1a4335" />
+
+
 ### 2. Client (CLI)
 
 Run a single operation:
@@ -47,6 +50,7 @@ python client/main.py
 # OR
 make client
 ```
+<img width="1200" height="400" alt="image" src="https://github.com/user-attachments/assets/0f6669c2-972d-4227-ba98-33c56b99c10f" />
 
 ### 3. UI
 
@@ -55,6 +59,8 @@ Open `ui/index.html` in your web browser. You can do this directly or serve it v
 cd ui && python -m http.server 8080
 ```
 Then visit `http://localhost:8080`.
+
+<img width="1200" height="1008" alt="image" src="https://github.com/user-attachments/assets/56823adb-6225-49cf-80b3-0aee50b66511" />
 
 ### 4. Docker
 
@@ -87,6 +93,7 @@ make test
 # OR
 pytest
 ```
+<img width="1200" height="400" alt="image" src="https://github.com/user-attachments/assets/c693ae3c-ebb4-4e73-a8dc-cb453a9da6ec" />
 
 ## CI/CD
 
