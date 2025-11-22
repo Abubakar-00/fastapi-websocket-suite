@@ -6,6 +6,9 @@ from client.ws_client import WebSocketClient
 
 
 async def run_single_operation(uri: str, operation: str, a: float, b: float):
+    """
+    Execute a single arithmetic operation via WebSocket.
+    """
     client = WebSocketClient(uri)
     try:
         await client.connect()
@@ -20,6 +23,9 @@ async def run_single_operation(uri: str, operation: str, a: float, b: float):
 
 
 async def run_demo(uri: str):
+    """
+    Run a demonstration with random arithmetic operations.
+    """
     client = WebSocketClient(uri)
     operations = ["add", "subtract", "multiply", "divide"]
     try:

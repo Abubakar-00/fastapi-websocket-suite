@@ -8,6 +8,9 @@ from client.ws_client import WebSocketClient
 
 @pytest.mark.asyncio
 async def test_client_connect():
+    """
+    Test that the client attempts to connect to the correct URI.
+    """
     client = WebSocketClient("ws://test")
     with patch("websockets.connect", new_callable=AsyncMock) as mock_connect:
         await client.connect()
@@ -16,6 +19,9 @@ async def test_client_connect():
 
 @pytest.mark.asyncio
 async def test_client_compute():
+    """
+    Test that the client sends the correct payload and returns the expected result.
+    """
     client = WebSocketClient("ws://test")
     client.websocket = AsyncMock()
 

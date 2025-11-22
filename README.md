@@ -1,117 +1,127 @@
-# WebSocket Client + Server Project
+# WebSocket Calculator
 
-This project implements a WebSocket-based calculator with a FastAPI server, an async Python client, and a web UI.
+A WebSocket-based calculator implementation with a FastAPI server, async Python client, and web interface.
 
-## Architecture
+## 🏗️ Architecture
 
-- **Server**: FastAPI application exposing a WebSocket endpoint `/ws`. Handles arithmetic operations (add, subtract, multiply, divide).
-- **Client**: Async Python CLI tool to interact with the server.
-- **UI**: HTML/JS frontend using Tailwind CSS for a user-friendly interface.
-- **DevOps**: Dockerized services managed by Docker Compose, with CI/CD via GitHub Actions.
+**Server**: FastAPI application with WebSocket endpoint at `/ws` for arithmetic operations (add, subtract, multiply, divide)
 
-## Prerequisites
+**Client**: Async Python CLI for server interaction
+
+**UI**: HTML/JavaScript frontend with Tailwind CSS
+
+**DevOps**: Dockerized services with Docker Compose and GitHub Actions CI/CD
+
+## 📋 Prerequisites
 
 - Python 3.11+
-- Docker & Docker Compose (optional, for containerized run)
+- Docker & Docker Compose (optional)
 
-## Setup
+## 🚀 Setup
 
-1. **Clone the repository**
-2. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
+Clone the repository and install dependencies:
 
-## Running the Project
+```bash
+pip install -r requirements.txt
+```
 
-### 1. Server
+## 💻 Running the Project
+
+### Server
 
 Start the WebSocket server:
+
 ```bash
 make server
-# OR
+# or
 uvicorn server.main:app --reload --host 0.0.0.0 --port 8000
 ```
-The server will be available at `ws://localhost:8000/ws`.
+
+Server available at `ws://localhost:8000/ws`
 
 <img width="1200" height="400" alt="image" src="https://github.com/user-attachments/assets/df94e455-6f47-46e2-8a52-05454e1a4335" />
 
+### Client (CLI)
 
-### 2. Client (CLI)
+Single operation:
 
-Run a single operation:
 ```bash
 python client/main.py --operation add --a 5 --b 10
 ```
 
-Run the demo mode (continuous random operations):
+Demo mode (continuous random operations):
+
 ```bash
 python client/main.py
-# OR
+# or
 make client
 ```
+
 <img width="1200" height="400" alt="image" src="https://github.com/user-attachments/assets/0f6669c2-972d-4227-ba98-33c56b99c10f" />
 
-### 3. UI
+### Web UI
 
-Open `ui/index.html` in your web browser. You can do this directly or serve it via a simple HTTP server:
+Open `ui/index.html` directly in your browser, or serve it:
+
 ```bash
 cd ui && python -m http.server 8080
 ```
-Then visit `http://localhost:8080`.
+
+Visit `http://localhost:8080`
 
 <img width="1200" height="1008" alt="image" src="https://github.com/user-attachments/assets/56823adb-6225-49cf-80b3-0aee50b66511" />
 
-### 4. Docker
+### 🐳 Docker
 
-#### Development (Server + Client)
-Build and run the server and client (CLI) locally:
+**Development (Server + Client)**:
+
 ```bash
 docker-compose up --build
 ```
 
-#### Development (Server + UI)
-Build and run the server and UI (Nginx) locally:
+**Development (Server + UI)**:
+
 ```bash
 docker compose -f docker-compose.ui.yaml up --build
 ```
-Access the UI at `http://localhost:8080`.
 
-#### Production (Pre-built Images)
-Run the full stack using images pulled from Docker Hub (no build required):
+Access UI at `http://localhost:8080`
+
+**Production (Pre-built images)**:
+
 ```bash
 export DOCKERHUB_USERNAME=abubakar00
 docker compose -f docker-compose.prod.yaml up -d
 ```
-Ensure you have set the `DOCKERHUB_USERNAME` environment variable to match the image repository.
 
-## Testing
+## 🧪 Testing
 
-Run the test suite:
 ```bash
 make test
-# OR
+# or
 pytest
 ```
+
 <img width="1200" height="400" alt="image" src="https://github.com/user-attachments/assets/c693ae3c-ebb4-4e73-a8dc-cb453a9da6ec" />
 
-## CI/CD
+## 🔄 CI/CD
 
-The project includes a GitHub Actions workflow (`.github/workflows/ci.yml`) that runs on every push to `main`. It performs:
-- Linting (flake8, black, isort)
-- Testing (pytest)
+GitHub Actions workflow (`.github/workflows/ci.yml`) runs on every push to `main`:
+
+- Linting with flake8, black, and isort
+- Testing with pytest
 - Docker image builds
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 ws_project/
-├── server/         # FastAPI server code
-├── client/         # Async Python client code
-├── ui/             # HTML/JS frontend
-├── tests/          # Pytest suite
-├── docker/         # Dockerfiles
-├── .github/        # CI/CD workflows
+├── server/              # FastAPI server
+├── client/              # Async Python client
+├── ui/                  # HTML/JS frontend
+├── tests/               # Test suite
+├── docker/              # Dockerfiles
+├── .github/             # CI/CD workflows
 ├── requirements.txt
 ├── Makefile
 └── README.md

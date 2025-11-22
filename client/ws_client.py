@@ -10,11 +10,18 @@ logger = logging.getLogger("ws_client")
 
 
 class WebSocketClient:
+    """
+    Async WebSocket client for performing arithmetic operations.
+    Handles connection management and message exchange with the server.
+    """
     def __init__(self, uri: str):
         self.uri = uri
         self.websocket = None
 
     async def connect(self):
+        """
+        Establish a WebSocket connection to the server.
+        """
         try:
             self.websocket = await websockets.connect(self.uri)
             logger.info(f"Connected to {self.uri}")
@@ -23,6 +30,9 @@ class WebSocketClient:
             raise
 
     async def disconnect(self):
+        """
+        Close the WebSocket connection if it exists.
+        """
         if self.websocket:
             await self.websocket.close()
             logger.info("Disconnected")
@@ -30,6 +40,17 @@ class WebSocketClient:
     async def compute(
         self, operation: str, a: float, b: float
     ) -> Optional[Dict[str, Any]]:
+        """
+        Send a computation request to the server and await the result.
+
+        Args:
+            operation: The arithmetic operation to perform (add, subtract, multiply, divide).
+            a: The first operand.
+            b: The second operand.
+
+        Returns:
+            The JSON response from the server as a dictionary, or None if an error occurs.
+        """
         if not self.websocket:
             await self.connect()
 

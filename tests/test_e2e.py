@@ -7,12 +7,18 @@ client = TestClient(app)
 
 
 def test_health_check():
+    """
+    Test the health check endpoint.
+    """
     response = client.get("/health")
     assert response.status_code == 200
     assert response.json() == {"status": "ok"}
 
 
 def test_websocket_compute():
+    """
+    Test a valid computation via WebSocket.
+    """
     with client.websocket_connect("/ws") as websocket:
         websocket.send_json({"operation": "add", "a": 5, "b": 3})
         data = websocket.receive_json()
@@ -21,6 +27,9 @@ def test_websocket_compute():
 
 
 def test_websocket_invalid_op():
+    """
+    Test that an invalid operation returns an error response.
+    """
     with client.websocket_connect("/ws") as websocket:
         websocket.send_json({"operation": "invalid", "a": 5, "b": 3})
         data = websocket.receive_json()
