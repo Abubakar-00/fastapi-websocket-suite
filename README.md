@@ -58,10 +58,26 @@ Then visit `http://localhost:8080`.
 
 ### 4. Docker
 
-Build and run all services:
+#### Development (Server + Client)
+Build and run the server and client (CLI) locally:
 ```bash
 docker-compose up --build
 ```
+
+#### Development (Server + UI)
+Build and run the server and UI (Nginx) locally:
+```bash
+docker compose -f docker-compose.ui.yaml up --build
+```
+Access the UI at `http://localhost:8080`.
+
+#### Production (Pre-built Images)
+Run the full stack using images pulled from Docker Hub (no build required):
+```bash
+export DOCKERHUB_USERNAME=abubakar00
+docker compose -f docker-compose.prod.yaml up -d
+```
+Ensure you have set the `DOCKERHUB_USERNAME` environment variable to match the image repository.
 
 ## Testing
 
