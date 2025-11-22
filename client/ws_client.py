@@ -14,6 +14,7 @@ class WebSocketClient:
     Async WebSocket client for performing arithmetic operations.
     Handles connection management and message exchange with the server.
     """
+
     def __init__(self, uri: str):
         self.uri = uri
         self.websocket = None

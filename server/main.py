@@ -21,11 +21,18 @@ app.add_middleware(
 
 @app.get("/health")
 async def health_check():
+    """
+    Simple health check endpoint to verify server status.
+    """
     return {"status": "ok"}
 
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
+    """
+    WebSocket endpoint for handling computation requests.
+    Accepts JSON messages with 'operation', 'a', and 'b', and returns the result.
+    """
     await websocket.accept()
     logger.info("Client connected")
     try:
